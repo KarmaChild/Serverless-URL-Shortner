@@ -4,7 +4,7 @@ import json
 
 def lambda_handler(event, context):
     body = event["url"]
-    new_url = shortener.shorten_url(event["url"])
+    new_url = shortener.shorten_url(body)
 
     statusCode = 200
     return {
