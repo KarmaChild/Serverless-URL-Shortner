@@ -1,7 +1,16 @@
 import URLShortener as shortener
-
-new_url = shortener.shorten_url("new_url.com")
+import json
 
 
 def lambda_handler(event, context):
-    return new_url
+    body = event["url"]
+    new_url = shortener.shorten_url(event["url"])
+
+    statusCode = 200
+    return {
+        "statusCode": statusCode,
+        "body": new_url,
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
