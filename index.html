@@ -17,7 +17,8 @@
 
       <br />
       <button type="button" onclick="submit_data_to_api_gateway()">Shorten &rarr;</button>
-      <div id="url"></div>
+      <br>
+      <div1 id="url"></div1>
     </form>
 
 
@@ -32,19 +33,22 @@
 
       const submit_data_to_api_gateway = () => {
         let xhr = new XMLHttpRequest()
-        let url = "https://g4pkrztot0.execute-api.us-east-1.amazonaws.com/dev/?url=lolse"
+        let url = "https://g4pkrztot0.execute-api.us-east-1.amazonaws.com/dev/?url=www.mogle.co.in"
         xhr.open("get",url)
         xhr.send()
         xhr.addEventListener("readystatechange", () => {
           if(xhr.readyState == 4){
             console.log("got it")
             let response = JSON.parse(xhr.responseText)
-            console.log(response.body[0])
-            const para = document.createElement("p");
-            para.innerHTML = response.body[0];
-            document.getElementById("url").appendChild(para);
+            const short_url = response.body[0]
+            console.log(short_url)
+            show_short_url(short_url)
           }
         })
+
+      const show_short_url = (short_url) => {
+        document.getElementById("url").innerHTML += short_url
+      }
 
       }
     </script>

@@ -29,6 +29,10 @@ body {
           color: wheat;
       }
 
+      div1{
+          color: wheat;
+      }
+
       #success,
       form p {
         display: none;
