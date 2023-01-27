@@ -3,56 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Serverless URL Shortner</title>
-
-    <style type="text/css" media="screen">
-      body {
-        font-size: 200%;
-        text-align: center;
-        margin: auto 0;
-        margin-top: 5em;
-        font-family: Courier, monospace;
-        background-color: black;
-      }
-
-      label {
-        display: block;
-      }
-
-      input[type=text] {
-        font-size: 80%;
-        border-radius: 25px;
-      }
-
-      input::placeholder {
-        font-size: 80%;
-      }
-
-
-      h1{
-          color: wheat;
-      }
-
-      p{
-          color: wheat;
-      }
-
-      #success,
-      form p {
-        display: none;
-      }
-
-      #footer {
-        margin-top: 5em;
-        font-size: 50%;
-        color: #555;
-      }
-
-      #footer a {
-        color: #555;
-        text-decoration: none;
-        border-bottom: 1px dotted;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
 
@@ -65,13 +16,37 @@
       <input type="text" name="long_url" id="long_url" placeholder="www.example.com" />
 
       <br />
-      <input type="submit" value="Shorten &rarr;" />
-      <p>Finding&hellip;</p>
+      <button type="button" onclick="submit_data_to_api_gateway()">Shorten &rarr;</button>
+      <div id="url"></div>
     </form>
 
 
     <div id="footer">
       <p>Powered by AWS Lambda, Api Gateway and DynamoDB </p>
     </div>
+
+    <script type="application/javascript">
+
+      const api_gateway_url = "https://g4pkrztot0.execute-api.us-east-1.amazonaws.com/dev/?url=pot"
+      const long_url = document.getElementById("long_url")
+
+      const submit_data_to_api_gateway = () => {
+        let xhr = new XMLHttpRequest()
+        let url = "https://g4pkrztot0.execute-api.us-east-1.amazonaws.com/dev/?url=lolse"
+        xhr.open("get",url)
+        xhr.send()
+        xhr.addEventListener("readystatechange", () => {
+          if(xhr.readyState == 4){
+            console.log("got it")
+            let response = JSON.parse(xhr.responseText)
+            console.log(response.body[0])
+            const para = document.createElement("p");
+            para.innerHTML = response.body[0];
+            document.getElementById("url").appendChild(para);
+          }
+        })
+
+      }
+    </script>
   </body>
 </html>
