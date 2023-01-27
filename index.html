@@ -13,10 +13,10 @@
 
     <form id="input" action="#" accept-charset="utf-8">
       <h1>Shorten your URL</h1>
-      <input type="text" name="long_url" id="long_url" placeholder="www.example.com" />
+      <input type="text" id="long_url" placeholder="www.example.com" />
 
       <br />
-      <button type="button" onclick="submit_data_to_api_gateway()">Shorten &rarr;</button>
+      <button type="button" onclick="submit_data_to_api_gateway()" >Shorten &rarr;</button>
       <br>
       <div1 id="url"></div1>
     </form>
@@ -28,17 +28,18 @@
 
     <script type="application/javascript">
 
-      const api_gateway_url = "https://g4pkrztot0.execute-api.us-east-1.amazonaws.com/dev/?url=pot"
-      const long_url = document.getElementById("long_url")
+      const api_gateway_url = "https://g4pkrztot0.execute-api.us-east-1.amazonaws.com/dev/?url="
+
 
       const submit_data_to_api_gateway = () => {
+        const long_url = document.getElementById("long_url").value
+
         let xhr = new XMLHttpRequest()
-        let url = "https://g4pkrztot0.execute-api.us-east-1.amazonaws.com/dev/?url=www.mogle.co.in"
+        let url = "https://g4pkrztot0.execute-api.us-east-1.amazonaws.com/dev/?url="+long_url
         xhr.open("get",url)
         xhr.send()
         xhr.addEventListener("readystatechange", () => {
           if(xhr.readyState == 4){
-            console.log("got it")
             let response = JSON.parse(xhr.responseText)
             const short_url = response.body[0]
             console.log(short_url)
